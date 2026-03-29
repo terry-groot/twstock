@@ -157,10 +157,10 @@ def render_table(contracts, ssf_map, market_data):
 
         status = "  ".join(a[1] for a in alerts) if alerts else "✓"
 
-        price_str  = f"{price:.0f}"  if price  is not None else "--"
-        open_str   = f"{open_:.0f}" if open_  is not None else "--"
-        high_str   = f"{high:.0f}"  if high   is not None else "--"
-        low_str    = f"{low:.0f}"   if low    is not None else "--"
+        price_str  = f"{price:.1f}"  if price  is not None else "--"
+        open_str   = f"{open_:.1f}" if open_  is not None else "--"
+        high_str   = f"{high:.1f}"  if high   is not None else "--"
+        low_str    = f"{low:.1f}"   if low    is not None else "--"
         change_str = change if change else "--"
 
         row = f"{sym:<6} {name:<10} {price_str:>9} {open_str:>9} {high_str:>9} {low_str:>9} {change_str:>7} {volume:>8}  {status}"

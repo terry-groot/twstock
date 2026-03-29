@@ -63,13 +63,14 @@ def check_alert(stock, price):
     alerts = []
     upper = stock.get("upper")
     lower = stock.get("lower")
+    margin = 5 if price >= 1000 else 1
     if upper and price >= upper:
         alerts.append(("red", f"⚠ 已達上限 {upper}!"))
-    elif upper and price >= upper * 0.9:
+    elif upper and price >= upper - margin:
         alerts.append(("yellow", f"▲ 接近上限 {upper}"))
     if lower and price <= lower:
         alerts.append(("red", f"⚠ 已達下限 {lower}!"))
-    elif lower and price <= lower * 1.1:
+    elif lower and price <= lower + margin:
         alerts.append(("yellow", f"▼ 接近下限 {lower}"))
     return alerts
 

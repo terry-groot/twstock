@@ -40,22 +40,41 @@ def load_config(path="config.json"):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
-def fetch_price(stock_id):
-    try:
-        info = twstock.realtime.get(stock_id)
-        if not info or not info.get("success"):
-            return None
-        rt = info["realtime"]
-        return {
-            "price":  float(rt["latest_trade_price"]) if rt["latest_trade_price"] else None,
-            "open":   float(rt["open"])  if rt["open"]  else None,
-            "high":   float(rt["high"])  if rt["high"]  else None,
-            "low":    float(rt["low"])   if rt["low"]   else None,
-            "volume": rt["accumulate_trade_volume"],
-            "time":   info["info"]["time"],
-        }
-    except Exception:
+def _parse_float(val):
+    """Parse float from TWSE API value; returns None for missing/dash values."""
+    if not val or val == "-":
         return None
+    try:
+        return float(val)
+    except (ValueError, TypeError):
+        return None
+
+def fetch_prices(stock_ids):
+    """Fetch all stock prices in a single API request."""
+    try:
+        data = twstock.realtime.get(stock_ids)
+        if not data or not data.get("success"):
+            print(f"\n[警告] 取得股價失敗：rtcode={data.get('rtcode')}, msg={data.get('rtmessage')}", file=sys.stderr)
+            return {sid: None for sid in stock_ids}
+        results = {}
+        for sid in stock_ids:
+            info = data.get(sid)
+            if not info or not info.get("success"):
+                results[sid] = None
+                continue
+            rt = info["realtime"]
+            results[sid] = {
+                "price":  _parse_float(rt["latest_trade_price"]),
+                "open":   _parse_float(rt["open"]),
+                "high":   _parse_float(rt["high"]),
+                "low":    _parse_float(rt["low"]),
+                "volume": rt["accumulate_trade_volume"],
+                "time":   info["info"]["time"],
+            }
+        return results
+    except Exception as e:
+        print(f"\n[錯誤] 取得股價例外：{e}", file=sys.stderr)
+        return {sid: None for sid in stock_ids}
 
 def check_alert(stock, price):
     if price is None:
@@ -133,7 +152,9 @@ def main():
 
     try:
         while True:
-            results = [fetch_price(s["id"]) for s in stocks]
+            stock_ids = [s["id"] for s in stocks]
+            price_map = fetch_prices(stock_ids)
+            results = [price_map.get(sid) for sid in stock_ids]
             render_table(stocks, results)
             time.sleep(interval)
     except KeyboardInterrupt:

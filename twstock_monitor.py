@@ -79,37 +79,49 @@ def fetch_prices(stock_ids):
 def check_alert(stock, price):
     if price is None:
         return []
-    alerts = []
     upper = stock.get("upper")
     lower = stock.get("lower")
     margin = 5 if price >= 1000 else 1
     if upper and price >= upper:
-        alerts.append(("red", f"⚠ 已達上限 {upper}!"))
-    elif upper and price >= upper - margin:
-        alerts.append(("yellow", f"▲ 接近上限 {upper}"))
+        return [("red", f"⚠ 已達上限 {upper}!")]
     if lower and price <= lower:
-        alerts.append(("red", f"⚠ 已達下限 {lower}!"))
-    elif lower and price <= lower + margin:
-        alerts.append(("yellow", f"▼ 接近下限 {lower}"))
-    return alerts
+        return [("red", f"⚠ 已達下限 {lower}!")]
+    if upper and price >= upper - margin:
+        return [("yellow", f"▲ 接近上限 {upper}")]
+    if lower and price <= lower + margin:
+        return [("yellow", f"▼ 接近下限 {lower}")]
+    return []
+
+def cjk_len(s):
+    return sum(2 if ord(c) > 127 else 1 for c in s)
+
+def ljust_cjk(s, width):
+    return s + ' ' * max(width - cjk_len(s), 0)
+
+def rjust_cjk(s, width):
+    return ' ' * max(width - cjk_len(s), 0) + s
 
 def render_table(stocks, results):
     os.system("cls" if os.name == "nt" else "clear")
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    line = "=" * 72
+    line = "=" * 65
     print(line)
     print(f"  台股即時報價監控  |  更新時間: {now}  |  按 Ctrl+C 結束")
     print(line)
-    header = f"{'代號':<6} {'名稱':<8} {'現價':>8} {'開盤':>8} {'最高':>8} {'最低':>8} {'成交量':>10}  狀態"
+    header = (f"{ljust_cjk('代號', 6)} {ljust_cjk('名稱', 10)}"
+              f" {rjust_cjk('現價', 8)} {rjust_cjk('開盤', 8)}"
+              f" {rjust_cjk('最高', 8)} {rjust_cjk('最低', 8)}"
+              f" {rjust_cjk('成交量', 9)}  狀態")
     print(header)
-    print("-" * 72)
+    print("-" * 65)
 
     has_alert = False
     for stock, data in zip(stocks, results):
         sid   = stock["id"]
         name  = stock.get("name", sid)
         if data is None:
-            row = f"{sid:<6} {name:<8} {'--':>8} {'--':>8} {'--':>8} {'--':>8} {'--':>10}  無法取得"
+            row = (f"{sid:<6} {ljust_cjk(name, 10)}"
+                   f" {'--':>8} {'--':>8} {'--':>8} {'--':>8} {'--':>9}  無法取得")
             print(f"{YELLOW}{row}{RESET}")
             continue
 
@@ -130,12 +142,13 @@ def render_table(stocks, results):
 
         status = "  ".join(a[1] for a in alerts) if alerts else "✓"
 
-        price_str  = f"{price:.1f}"  if price  is not None else "--"
-        open_str   = f"{open_:.1f}" if open_  is not None else "--"
-        high_str   = f"{high:.1f}"  if high   is not None else "--"
-        low_str    = f"{low:.1f}"   if low    is not None else "--"
+        price_str = f"{price:.1f}"  if price is not None else "--"
+        open_str  = f"{open_:.1f}" if open_ is not None else "--"
+        high_str  = f"{high:.1f}"  if high  is not None else "--"
+        low_str   = f"{low:.1f}"   if low   is not None else "--"
 
-        row = f"{sid:<6} {name:<8} {price_str:>8} {open_str:>8} {high_str:>8} {low_str:>8} {volume:>10}  {status}"
+        row = (f"{sid:<6} {ljust_cjk(name, 10)}"
+               f" {price_str:>8} {open_str:>8} {high_str:>8} {low_str:>8} {volume:>9}  {status}")
         print(f"{color}{row}{RESET}")
 
     print(line)

@@ -108,10 +108,10 @@ def render_table(stocks, results):
     print(line)
     print(f"  台股即時報價監控  |  更新時間: {now}  |  按 Ctrl+C 結束")
     print(line)
-    header = (f"{ljust_cjk('代號', 6)} {ljust_cjk('名稱', 10)}"
+    header = (f"{ljust_cjk('代號', 6)} {ljust_cjk('名稱', 6)}"
               f" {rjust_cjk('現價', 8)} {rjust_cjk('開盤', 8)}"
               f" {rjust_cjk('最高', 8)} {rjust_cjk('最低', 8)}"
-              f" {rjust_cjk('成交量', 9)}  狀態")
+              f" {rjust_cjk('成交量', 8)}  狀態")
     print(header)
     print("-" * 65)
 
@@ -120,8 +120,8 @@ def render_table(stocks, results):
         sid   = stock["id"]
         name  = stock.get("name", sid)
         if data is None:
-            row = (f"{sid:<6} {ljust_cjk(name, 10)}"
-                   f" {'--':>8} {'--':>8} {'--':>8} {'--':>8} {'--':>9}  無法取得")
+            row = (f"{sid:<6} {ljust_cjk(name, 6)}"
+                   f" {'--':>8} {'--':>8} {'--':>8} {'--':>8} {'--':>8}  無法取得")
             print(f"{YELLOW}{row}{RESET}")
             continue
 
@@ -147,8 +147,8 @@ def render_table(stocks, results):
         high_str  = f"{high:.1f}"  if high  is not None else "--"
         low_str   = f"{low:.1f}"   if low   is not None else "--"
 
-        row = (f"{sid:<6} {ljust_cjk(name, 10)}"
-               f" {price_str:>8} {open_str:>8} {high_str:>8} {low_str:>8} {volume:>9}  {status}")
+        row = (f"{sid:<6} {ljust_cjk(name, 6)}"
+               f" {price_str:>8} {open_str:>8} {high_str:>8} {low_str:>8} {volume:>8}  {status}")
         print(f"{color}{row}{RESET}")
 
     print(line)

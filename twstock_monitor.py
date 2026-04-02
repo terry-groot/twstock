@@ -142,7 +142,8 @@ def render_table(stocks, results):
 
         status = "  ".join(a[1] for a in alerts) if alerts else "✓"
 
-        price_str = f"{price:.1f}"  if price is not None else "--"
+        stale = data.get("stale", False)
+        price_str = (f"~{price:.1f}" if stale else f"{price:.1f}") if price is not None else "--"
         open_str  = f"{open_:.1f}" if open_ is not None else "--"
         high_str  = f"{high:.1f}"  if high  is not None else "--"
         low_str   = f"{low:.1f}"   if low   is not None else "--"
@@ -159,6 +160,7 @@ def main():
     config = load_config()
     stocks   = config["stocks"]
     interval = config.get("interval", 5)
+    last_prices = {}  # sid → 上次成交價
 
     print("載入設定完成，開始監控...")
     time.sleep(1)
@@ -167,7 +169,15 @@ def main():
         while True:
             stock_ids = [s["id"] for s in stocks]
             price_map = fetch_prices(stock_ids)
-            results = [price_map.get(sid) for sid in stock_ids]
+            results = []
+            for sid in stock_ids:
+                data = price_map.get(sid)
+                if data is not None:
+                    if data["price"] is not None:
+                        last_prices[sid] = data["price"]
+                    elif sid in last_prices:
+                        data = {**data, "price": last_prices[sid], "stale": True}
+                results.append(data)
             render_table(stocks, results)
             time.sleep(interval)
     except KeyboardInterrupt:

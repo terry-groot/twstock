@@ -28,7 +28,16 @@
       "Bash(python -m pytest tests/test_integration.py -v)",
       "Bash(timeout 5 python monitor.py)",
       "Bash(grep -n \"✓\\\\|🔴\\\\|🟡\" market_monitor/*.py)",
-      "Bash(timeout 3 python monitor.py)"
+      "Bash(timeout 3 python monitor.py)",
+      "Bash(grep -n '\"future\"' tests/*.py)",
+      "Bash(python -c ':*)",
+      "Bash(timeout 8 python monitor.py)",
+      "Bash(timeout 10 python monitor.py --verbose)",
+      "Bash(rm -f twstock_monitor.py futures_monitor.py)",
+      "Bash(rm -f config.json.backup futures_config.json.backup)",
+      "Bash(rm -f debug.log)",
+      "Bash(rm -rf __pycache__ .pytest_cache)",
+      "Bash(rm -f .coverage)"
     ]
   }
 }

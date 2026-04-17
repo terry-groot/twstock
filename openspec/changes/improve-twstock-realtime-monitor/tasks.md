@@ -40,7 +40,7 @@
 - [x] 5.3 Implement retry logic with exponential backoff in stock source
 - [x] 5.4 Add error distinction (transient vs permanent) in stock source
 - [x] 5.5 Implement caching of last successful response
-- [ ] 5.6 Create integration tests for stock source with mocked TWSE API
+- [x] 5.6 Create integration tests for stock source with mocked TWSE API
 
 ## 6. Futures Data Source
 
@@ -48,7 +48,7 @@
 - [x] 6.2 Implement SSF (Single Stock Futures) contract resolution
 - [x] 6.3 Add retry logic with exponential backoff for futures source
 - [x] 6.4 Implement caching for futures data
-- [ ] 6.5 Create integration tests for futures source with mocked Taifex API
+- [x] 6.5 Create integration tests for futures source with mocked Taifex API
 
 ## 7. Terminal UI & Rendering
 
@@ -57,8 +57,8 @@
 - [x] 7.3 Add color codes (RED, YELLOW, GREEN) with consistent styling
 - [x] 7.4 Implement error state rendering (unavailable, stale data, retrying)
 - [x] 7.5 Add clear screen functionality with platform detection (Windows/Unix)
-- [ ] 7.6 Create unit tests for UI rendering with fixed output validation
-- [ ] 7.7 Test CJK alignment edge cases (mixed ASCII and CJK in same column)
+- [x] 7.6 Create unit tests for UI rendering with fixed output validation
+- [x] 7.7 Test CJK alignment edge cases (mixed ASCII and CJK in same column)
 
 ## 8. Core Monitor Loop
 
@@ -68,7 +68,7 @@
 - [x] 8.4 Add graceful shutdown handling (Ctrl+C)
 - [x] 8.5 Implement asynchronous-compatible fetch and render pattern
 - [x] 8.6 Add monitor status querying methods for external integration
-- [ ] 8.7 Create integration tests for monitor loop
+- [x] 8.7 Create integration tests for monitor loop
 
 ## 9. Command-Line Interface
 
@@ -84,16 +84,16 @@
 - [x] 10.2 Add circuit breaker pattern to prevent API hammering
 - [x] 10.3 Implement timeout handling for all API calls
 - [x] 10.4 Add clear error logging for all failure modes
-- [ ] 10.5 Create comprehensive error handling tests
+- [x] 10.5 Create comprehensive error handling tests
 
 ## 11. Testing & Validation
 
 - [x] 11.1 Create test fixtures for mock TWSE API responses
 - [x] 11.2 Create test fixtures for mock Taifex API responses
-- [ ] 11.3 Write end-to-end test with both sources running
-- [ ] 11.4 Add stress tests for rapid polling
+- [x] 11.3 Write end-to-end test with both sources running
+- [x] 11.4 Add stress tests for rapid polling
 - [x] 11.5 Create configuration validation tests
-- [ ] 11.6 Generate coverage report (target: 85%+)
+- [x] 11.6 Generate coverage report (target: 85%+)
 
 ## 12. Backward Compatibility & Migration
 

@@ -1,0 +1,50 @@
+{
+  "stocks": [
+    {
+      "id": "2330",
+      "name": "台積電",
+      "upper": 1900,
+      "lower": 1760,
+      "enabled": true
+    },
+    {
+      "id": "3260",
+      "name": "威剛",
+      "upper": 410,
+      "lower": 330,
+      "enabled": true
+    },
+    {
+      "id": "3533",
+      "name": "嘉澤",
+      "upper": 2340,
+      "lower": 2220,
+      "enabled": true
+    }
+  ],
+  "futures": [
+    {
+      "id": "TX",
+      "name": "台指期",
+      "upper": 34000,
+      "lower": 32000,
+      "enabled": true
+    },
+    {
+      "id": "2330",
+      "name": "台積電期",
+      "upper": 1900,
+      "lower": 1760,
+      "enabled": true
+    }
+  ],
+  "monitor": {
+    "stock_interval": 5,
+    "futures_interval": 30,
+    "retry_max_attempts": 3,
+    "retry_backoff_seconds": 2,
+    "beep_enabled": true,
+    "log_level": "INFO",
+    "log_file": null
+  }
+}

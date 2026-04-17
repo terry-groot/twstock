@@ -1,0 +1,17 @@
+{
+  "interval": 30,
+  "contracts": [
+    {
+      "id": "TX",
+      "name": "台指期",
+      "upper": 34000,
+      "lower": 32000
+    },
+    {
+      "id": "2330",
+      "name": "台積電期",
+      "upper": 1900,
+      "lower": 1760
+    }
+  ]
+}

@@ -101,7 +101,7 @@ Migrating legacy configuration files, migrating...
 {
   "interval": 30,
   "contracts": [
-    {"id": "TX", "name": "台指期", "upper": 34000, "lower": 32000}
+    {"id": "TX", "name": "台灣指數期貨", "upper": 34000, "lower": 32000}
   ]
 }
 ```
@@ -115,7 +115,7 @@ Migrating legacy configuration files, migrating...
     {"id": "2330", "name": "台積電", "upper": 1000, "lower": 900, "enabled": true}
   ],
   "futures": [
-    {"id": "TX", "name": "台指期", "upper": 34000, "lower": 32000, "enabled": true}
+    {"id": "TX", "name": "台灣指數期貨", "upper": 34000, "lower": 32000, "enabled": true}
   ],
   "monitor": {
     "stock_interval": 5,
@@ -129,22 +129,15 @@ Migrating legacy configuration files, migrating...
 }
 ```
 
-## Using the Legacy Wrappers (Deprecated)
+## Legacy Scripts Removed
 
-The old scripts still work for backward compatibility but show warnings:
+The old `twstock_monitor.py` and `futures_monitor.py` scripts have been removed. All functionality is now consolidated in:
 
 ```bash
-$ python twstock_monitor.py
-⚠️  警告: twstock_monitor.py 已棄用，請使用 'python monitor.py' 代替。
+python monitor.py
 ```
 
-These wrappers:
-1. Detect legacy configuration
-2. Migrate automatically
-3. Run using the new framework
-4. Will be removed in future versions
-
-**Do not rely on these. Migrate to `python monitor.py` immediately.**
+If you have old scripts from a previous version, the configuration will be automatically migrated when you run the new monitor.
 
 ## Behavior Changes
 

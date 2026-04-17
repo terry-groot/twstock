@@ -24,14 +24,14 @@ This generates:
   "futures": [
     {
       "id": "TX",
-      "name": "台指期",
+      "name": "台灣指數期貨",
       "upper": 34000,
       "lower": 32000,
       "enabled": true
     },
     {
-      "id": "2330",
-      "name": "台積電期",
+      "id": "QFF",
+      "name": "台積電期貨",
       "upper": 1900,
       "lower": 1760,
       "enabled": true
@@ -87,8 +87,8 @@ This generates:
       "enabled": true         // Include in monitoring (default: true)
     },
     {
-      "id": "2330",           // Or stock code for SSF (Single Stock Futures)
-      "name": "台積電期",      // Display name
+      "id": "QFF",            // SSF (Single Stock Futures) contract code for 2330 (TSMC)
+      "name": "台積電期貨",    // Display name
       "upper": 1900,
       "lower": 1760,
       "enabled": true
@@ -142,9 +142,9 @@ This generates:
 {
   "stocks": [],
   "futures": [
-    { "id": "TX", "name": "台指期", "upper": 34000, "lower": 32000, "enabled": true },
-    { "id": "MTX", "name": "小台", "upper": 17000, "lower": 16000, "enabled": true },
-    { "id": "2330", "name": "台積電期", "upper": 1900, "lower": 1760, "enabled": true }
+    { "id": "TX", "name": "台灣指數期貨", "upper": 34000, "lower": 32000, "enabled": true },
+    { "id": "MTX", "name": "小台指期", "upper": 17000, "lower": 16000, "enabled": true },
+    { "id": "QFF", "name": "台積電期貨", "upper": 1900, "lower": 1760, "enabled": true }
   ],
   "monitor": {
     "stock_interval": 10,
@@ -167,7 +167,7 @@ This generates:
     { "id": "2454", "name": "聯發科", "enabled": false }  // Disabled
   ],
   "futures": [
-    { "id": "TX", "name": "台指期", "upper": 34000, "lower": 32000, "enabled": true }
+    { "id": "TX", "name": "台灣指數期貨", "upper": 34000, "lower": 32000, "enabled": true }
   ],
   "monitor": {
     "stock_interval": 3,
@@ -204,21 +204,21 @@ For stock with `upper: 1000, lower: 900`:
 
 | Price | Alert | Color | Reason |
 |-------|-------|-------|--------|
-| 899 | ▼ 接近下限 900 | Yellow | 899 <= 901 (900 + 1) |
-| 900 | ⚠ 已達下限 900! | Red | 900 <= 900 |
-| 950 | ✓ | Green | No alert |
-| 1000 | ⚠ 已達上限 1000! | Red | 1000 >= 1000 |
-| 999 | ▲ 接近上限 1000 | Yellow | 999 >= 999 (1000 - 1) |
+| 899 | [LOW] 接近下限 900 | Yellow | 899 <= 901 (900 + 1) |
+| 900 | [LOWER] 已達下限 900 | Red | 900 <= 900 |
+| 950 | OK | Green | No alert |
+| 1000 | [UPPER] 已達上限 1000 | Red | 1000 >= 1000 |
+| 999 | [HIGH] 接近上限 1000 | Yellow | 999 >= 999 (1000 - 1) |
 
 For futures with `upper: 34000, lower: 32000`:
 
 | Price | Alert | Color | Reason |
 |-------|-------|-------|--------|
-| 31995 | ▼ 接近下限 32000 | Yellow | 31995 <= 32005 (32000 + 5) |
-| 32000 | ⚠ 已達下限 32000! | Red | 32000 <= 32000 |
-| 33000 | ✓ | Green | No alert |
-| 34000 | ⚠ 已達上限 34000! | Red | 34000 >= 34000 |
-| 33996 | ▲ 接近上限 34000 | Yellow | 33996 >= 33995 (34000 - 5) |
+| 31995 | [LOW] 接近下限 32000 | Yellow | 31995 <= 32005 (32000 + 5) |
+| 32000 | [LOWER] 已達下限 32000 | Red | 32000 <= 32000 |
+| 33000 | OK | Green | No alert |
+| 34000 | [UPPER] 已達上限 34000 | Red | 34000 >= 34000 |
+| 33996 | [HIGH] 接近上限 34000 | Yellow | 33996 >= 33995 (34000 - 5) |
 
 ## Logging Configuration
 
@@ -296,12 +296,13 @@ To temporarily disable an asset without removing it:
 - And many others
 
 ### Common Taiwan Futures Contracts
-- TX: Taiwan Index Futures (台指期)
-- MTX: Micro Index Futures (小台)
+- TX: Taiwan Index Futures (台灣指數期貨)
+- MTX: Micro Index Futures (小台指期)
 - TF: 10Y Bond Futures (金融債期貨)
-- Individual stock futures: CDF, C2DF, CCDF, etc. (use stock code like "2330")
+- QFF: TSMC Single Stock Futures (2330 - 台積電)
+- Other individual stock futures use their Taifex contract codes (e.g., CDF, C2DF, CCDF, etc.)
 
-For complete lists, check TWSE and Taifex websites.
+For complete contract code mapping, use the monitor's Taifex SSF resolution or check the Taifex website.
 
 ## Validation
 

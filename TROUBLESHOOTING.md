@@ -38,9 +38,8 @@
    ```json
    {
      "monitor": {
-       "intervals": {
-         "stock": 30
-       }
+       "stock_interval": 30,
+       "futures_interval": 60
      }
    }
    ```
@@ -74,13 +73,14 @@
 2. Check which codes are valid on TWSE:
    - Visit: https://www.twse.com.tw/
 
-3. Increase timeout for slow connections:
+3. Check your network connectivity and adjust polling intervals if needed:
    ```json
    {
      "monitor": {
-       "network": {
-         "timeout": 15
-       }
+       "stock_interval": 10,
+       "futures_interval": 45,
+       "retry_max_attempts": 5,
+       "retry_backoff_seconds": 3
      }
    }
    ```
@@ -142,10 +142,8 @@
    ```json
    {
      "monitor": {
-       "intervals": {
-         "stock": 10,
-         "futures": 60
-       }
+       "stock_interval": 10,
+       "futures_interval": 60
      }
    }
    ```
@@ -192,19 +190,20 @@
 2. Check required fields are present:
    ```json
    {
-     "monitor": {
-       "intervals": {
-         "stock": 5,
-         "futures": 30
-       }
-     },
-     "assets": [
+     "stocks": [
        {
          "id": "2330",
          "name": "台積電",
+         "upper": 1000,
+         "lower": 900,
          "enabled": true
        }
-     ]
+     ],
+     "futures": [],
+     "monitor": {
+       "stock_interval": 5,
+       "futures_interval": 30
+     }
    }
    ```
 
@@ -490,10 +489,10 @@ If your issue isn't listed above:
 ```json
 {
   "monitor": {
-    "intervals": {
-      "stock": 5,
-      "futures": 30
-    }
+    "stock_interval": 5,
+    "futures_interval": 30,
+    "retry_max_attempts": 3,
+    "retry_backoff_seconds": 2
   }
 }
 ```
@@ -502,10 +501,10 @@ If your issue isn't listed above:
 ```json
 {
   "monitor": {
-    "intervals": {
-      "stock": 10,
-      "futures": 60
-    }
+    "stock_interval": 10,
+    "futures_interval": 60,
+    "retry_max_attempts": 3,
+    "retry_backoff_seconds": 2
   }
 }
 ```
@@ -514,13 +513,10 @@ If your issue isn't listed above:
 ```json
 {
   "monitor": {
-    "intervals": {
-      "stock": 30,
-      "futures": 120
-    },
-    "network": {
-      "timeout": 20
-    }
+    "stock_interval": 30,
+    "futures_interval": 120,
+    "retry_max_attempts": 5,
+    "retry_backoff_seconds": 3
   }
 }
 ```

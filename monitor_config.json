@@ -25,14 +25,14 @@
   "futures": [
     {
       "id": "TX",
-      "name": "台指期",
+      "name": "台灣指數期貨",
       "upper": 34000,
       "lower": 32000,
       "enabled": true
     },
     {
-      "id": "2330",
-      "name": "台積電期",
+      "id": "QFF",
+      "name": "台積電期貨",
       "upper": 1900,
       "lower": 1760,
       "enabled": true

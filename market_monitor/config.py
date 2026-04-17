@@ -100,7 +100,7 @@ class Config:
                 assets[stock.id] = ("stock", stock)
         for future in self.futures:
             if future.enabled:
-                assets[future.id] = ("future", future)
+                assets[future.id] = ("futures", future)
         return assets
 
 

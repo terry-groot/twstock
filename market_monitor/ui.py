@@ -120,9 +120,9 @@ def render_table(
     output.append(f"  台灣股票期貨即時報價監控  |  更新時間: {now}  |  按 Ctrl+C 結束")
     output.append(line)
 
-    # Header
+    # Header (use ljust_cjk for CJK-aware alignment)
     header = (
-        f"{'代號':<6} {'名稱':<10}"
+        f"{ljust_cjk('代號', 6)} {ljust_cjk('名稱', 10)}"
         f" {'現價':>8} {'開盤':>8} {'最高':>8} {'最低':>8}"
         f" {'漲跌':>8}  狀態"
     )

@@ -63,7 +63,7 @@ def render_asset_row(
         # Unavailable
         row = (
             f"{asset_id:<6} {ljust_cjk(asset_name, 10)}"
-            f" {'--':>8} {'--':>8} {'--':>8} {'--':>8} {'--':>9}  無法取得"
+            f" {'--':>8} {'--':>8} {'--':>8} {'--':>8} {'--':>8}  無法取得"
         )
         color = YELLOW
         status = "warning"
@@ -86,22 +86,14 @@ def render_asset_row(
         open_str = format_price(asset_data.open)
         high_str = format_price(asset_data.high)
         low_str = format_price(asset_data.low)
-        volume = asset_data.volume or "--"
         change = asset_data.change or "--"
 
-        # Build row
-        if asset_type == "futures":
-            row = (
-                f"{asset_id:<6} {ljust_cjk(asset_name, 10)}"
-                f" {price_str:>8} {open_str:>8} {high_str:>8} {low_str:>8} {change:>7} {volume:>8}  "
-                f"{get_alert_message(alerts)}"
-            )
-        else:  # stock
-            row = (
-                f"{asset_id:<6} {ljust_cjk(asset_name, 10)}"
-                f" {price_str:>8} {open_str:>8} {high_str:>8} {low_str:>8} {volume:>9}  "
-                f"{get_alert_message(alerts)}"
-            )
+        # Build row (unified format for both stocks and futures)
+        row = (
+            f"{asset_id:<6} {ljust_cjk(asset_name, 10)}"
+            f" {price_str:>8} {open_str:>8} {high_str:>8} {low_str:>8} {change:>8}  "
+            f"{get_alert_message(alerts)}"
+        )
 
     return f"{color}{row}{RESET}", status
 
@@ -132,7 +124,7 @@ def render_table(
     header = (
         f"{'代號':<6} {'名稱':<10}"
         f" {'現價':>8} {'開盤':>8} {'最高':>8} {'最低':>8}"
-        f" {'漲跌/成交':>9}  狀態"
+        f" {'漲跌':>8}  狀態"
     )
     output.append(header)
     output.append("-" * 80)

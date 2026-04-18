@@ -62,8 +62,8 @@ def render_asset_row(
     if asset_data is None:
         # Unavailable
         row = (
-            f"{asset_id:<6} {ljust_cjk(asset_name, 10)}"
-            f" {'--':>8} {'--':>8} {'--':>8} {'--':>8} {'--':>8}  無法取得"
+            f"{ljust_cjk(asset_id, 6)} {ljust_cjk(asset_name, 10)}"
+            f" {rjust_cjk('--', 8)} {rjust_cjk('--', 8)} {rjust_cjk('--', 8)} {rjust_cjk('--', 8)} {rjust_cjk('--', 8)}  無法取得"
         )
         color = YELLOW
         status = "warning"
@@ -90,8 +90,8 @@ def render_asset_row(
 
         # Build row (unified format for both stocks and futures)
         row = (
-            f"{asset_id:<6} {ljust_cjk(asset_name, 10)}"
-            f" {price_str:>8} {open_str:>8} {high_str:>8} {low_str:>8} {change:>8}  "
+            f"{ljust_cjk(asset_id, 6)} {ljust_cjk(asset_name, 10)}"
+            f" {rjust_cjk(price_str, 8)} {rjust_cjk(open_str, 8)} {rjust_cjk(high_str, 8)} {rjust_cjk(low_str, 8)} {rjust_cjk(change, 8)}  "
             f"{get_alert_message(alerts)}"
         )
 
@@ -120,11 +120,10 @@ def render_table(
     output.append(f"  台灣股票期貨即時報價監控  |  更新時間: {now}  |  按 Ctrl+C 結束")
     output.append(line)
 
-    # Header (use ljust_cjk for CJK-aware alignment)
+    # Header (use CJK-aware alignment for all columns)
     header = (
         f"{ljust_cjk('代號', 6)} {ljust_cjk('名稱', 10)}"
-        f" {'現價':>8} {'開盤':>8} {'最高':>8} {'最低':>8}"
-        f" {'漲跌':>8}  狀態"
+        f" {rjust_cjk('現價', 8)} {rjust_cjk('開盤', 8)} {rjust_cjk('最高', 8)} {rjust_cjk('最低', 8)} {rjust_cjk('漲跌', 8)}  狀態"
     )
     output.append(header)
     output.append("-" * 80)

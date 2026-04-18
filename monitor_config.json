@@ -3,8 +3,8 @@
     {
       "id": "2330",
       "name": "台積電",
-      "upper": 1900,
-      "lower": 1760,
+      "upper": 2100,
+      "lower": 2000,
       "enabled": true
     },
     {
@@ -26,15 +26,15 @@
     {
       "id": "TX",
       "name": "台指期",
-      "upper": 34000,
-      "lower": 32000,
+      "upper": 37800,
+      "lower": 36800,
       "enabled": true
     },
     {
       "id": "QFF",
       "name": "台積電期貨",
-      "upper": 1900,
-      "lower": 1760,
+      "upper": 2100,
+      "lower": 2020,
       "enabled": true
     }
   ],

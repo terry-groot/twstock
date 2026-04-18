@@ -17,7 +17,7 @@
     {
       "id": "3533",
       "name": "嘉澤",
-      "upper": 2340,
+      "upper": 2540,
       "lower": 2220,
       "enabled": true
     }
@@ -31,8 +31,8 @@
       "enabled": true
     },
     {
-      "id": "2330",
-      "name": "台積電期",
+      "id": "QFF",
+      "name": "台積電期貨",
       "upper": 1900,
       "lower": 1760,
       "enabled": true

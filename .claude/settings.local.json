@@ -37,7 +37,10 @@
       "Bash(rm -f config.json.backup futures_config.json.backup)",
       "Bash(rm -f debug.log)",
       "Bash(rm -rf __pycache__ .pytest_cache)",
-      "Bash(rm -f .coverage)"
+      "Bash(rm -f .coverage)",
+      "Bash(cd /d)",
+      "Bash(pytest tests/ -v --tb=short)",
+      "Bash(grep -E \"\\\\.md$\")"
     ]
   }
 }
